@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+
+{% block Image %}
+
+            <section id = "securityArticlesImage">
+                <div class = "container">
+                    <div class = "row">
+                        {% include  "includes/navbar.html" %}
+                    </div>
+                </div>
+            </section>
+
+{% endblock Image %}
+
+
+
+{% block Title %}
+            
+            <section id = "securityTitle">
+                <div class = "coll-lg-12">
+                    <h3> GENERAL SECURİTY </h3>
+                </div>
+            </section>
+
+
+            
+            <section id = "search">
+                <div class = "container">
+                    <div class = "row">
+                            <div class = "coll-12 search">
+                                <form>
+                                    {% csrf_token %}
+                                    <input type="text" class = "keyword" name="keyword" placeholder = "Anahtar Kelimeler" maxlength = 30>
+                                    <button type="submit" class = "btn btn-danger more"> Ara</button>
+                                </form>
+                            </div>
+                        
+                    </div>
+                </div>
+            </section>
+
+
+            
+{% endblock Title %}
+
+
+
+{% block content %}
+
+            <section id = "securityArticlesList">
+                {% if SoCArticles %}
+                {% for articlecontext in  SoCArticles %}
+                <div class = "container">
+                    <div class = "securityArticles-content text-center">
+                        <div class = "row">
+                            <div class = "col-lg-6 distance article">
+                                {% if articlecontext.articleImage %}
+                                <div class ="text-center distance">
+                                    <img class = "image" style="max-width:100%; margin: 2%;" src = "{{articlecontext.articleImage.url}}" alt = ""/>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class = "col-lg-6 text-left distance article">
+                                <h4> {{articlecontext.title | safe}}</h4> 
+                                <p> {{articlecontext.content | safe | truncatechars_html:200}}</p>
+                                <a style = "float : right;" href = "{% url 'articles:SoCDetail' articlecontext.id %}" class = "btn btn-danger more"> Devamını Oku</a>
+                            </div>
+
+                            <div class = "col-lg-12 distance middle">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class = "alert alert-danger">
+                Henüz makale eklenmemiştir
+                </div>
+                {% endif %}   
+            </section>
+
+
+
+            <nav aria-label="Page navigation example" style = "background-color: #E0E0E0;">
+                <ul class="pagination">
+                    {% if SoCArticles.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ SoCArticles.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if SoCArticles.paginator.num_pages %}
+                    <span class="current ">
+                       Sayfa {{ SoCArticles.paginator.num_pages  | safe}} / {{ SoCArticles.number  | safe}}
+                    </span>
+                    {% endif %}
+    
+                    {% if SoCArticles.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"  href="?page={{ SoCArticles.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+{% endblock content %}

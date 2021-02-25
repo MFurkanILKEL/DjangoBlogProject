@@ -1,0 +1,258 @@
+<!doctype html>
+{% load static %}
+
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+            <link rel="stylesheet" href="{% static 'css/main1.css' %}">
+            <link rel="stylesheet" href="{% static 'css/main2.css' %}">
+            <link rel="stylesheet" href="{% static 'css/index.css' %}">
+            <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">           
+            <link href="https://fonts.googleapis.com/css2?family=Saira:wght@300&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Exo&family=Istok+Web&display=swap" rel="stylesheet">        
+        </head>
+  
+        <body>
+
+
+
+            <section id = "index">
+                <div class = "container">
+                    <div class = "row">
+                        {% include  "includes/navbar.html" %}
+                    </div>
+                </div>
+            
+                <div class ="row text-center">
+                    <div class = "col-lg-12">
+                        <h1>Web Siteme Hoşgeldiniz</h1>
+                    </div>
+                    
+                    <div class = "col-lg-12">
+                        <h2>Yazılarıma Gözatın</h2>
+                    </div>
+                    
+                    <div class = "col-lg-12">
+                        <a href = "/#network"><button type = "button" class = "btn btn-primary btn-lg">Gezinmeye Başla</button></a>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <section id = "network">
+                <div class = "container">
+                    <div class = "network-top text-center">
+                        <h3> NETWORK </h3>
+                        <p>NETWORK ARTICLES</p>
+                    </div>
+
+                    <div class = "network-content text-center">
+                        <div class = "row">
+                            {% if networkArticles %}
+                            {% for articlecontext in   networkArticles %}
+                            <div class = "col-lg-4 distance">
+                                <div class = "linkModified">
+                                    <a href = "{% url 'articles:networkDetail' articlecontext.id %}" >
+                                        {% if articlecontext.articleImage %}
+                                        <div>
+                                            <img class = "image img-thumbnail" style="max-width:100%" src = "{{articlecontext.articleImage.url}}" alt = ""/>
+                                        </div>
+                                        {% endif %}
+                                        <h4>{{articlecontext.title | safe}}</h4>
+                                        <p>{{articlecontext.summary | safe }}</p>
+                                    </a>
+                                </div>
+                            </div> 
+                            {% endfor %}
+                            {% else %}
+                            <div class = "alert alert-danger">
+                            Henüz makale eklenmemiştir
+                            </div>
+                            {% endif %}                        </div>
+                    </div>
+                    <div class = "text-center">
+                        <a href = " {% url 'articles:network' %}" class = "btn btn-danger more"> Daha Fazla </a>
+                    </div>
+                </div>  
+            </section>
+
+
+
+            <section id = "security">
+                <div class = "container">
+                    <div class = "security-top text-center">
+                        <h3> GENERAL SECURİTY </h3>
+                        <p>GENERAL SECURİTY ARTICLES</p>
+                    </div>
+                    <div class = "security-content text-center">
+                        <div class = "row">
+                            {% if SoCArticles %}
+                            {% for articlecontext in   SoCArticles %}
+                            <div class = "col-lg-4 distance">
+                                <div class = "linkModified">
+                                    <a href = "{% url 'articles:SoCDetail' articlecontext.id %}" >
+                                        <div class = "card">
+                                            {% if articlecontext.articleImage %}
+                                            <img class = "image img-thumbnail" style="max-width:100%" src = "{{articlecontext.articleImage.url}}" alt = ""/>
+                                            {% endif %}
+                                            <div class = "card-block">
+                                                <h4 class = "card-title">{{articlecontext.title | safe}}</h4>
+                                                <p class = "card-subtitle text-muted">{{articlecontext.summary | safe }}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %} 
+                            {% else %}
+                            <div class = "alert alert-danger">
+                            Henüz makale eklenmemiştir
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class = "text-center">
+                        <a href = " {% url 'articles:SoC' %}" class = "btn btn-danger more"> Daha Fazla </a>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <section id = "forensic">
+                <div class = "container">
+                    <div class = "forensic-top text-center">
+                        <h3> FORENSIC </h3>
+                        <p>FORENSIC ARTICLES</p>
+                    </div>
+                    <div class = "forensic-content text-center">
+                        <div class = "row">
+                            {% if forensicArticles %}
+                            {% for articlecontext in   forensicArticles %}
+                            <div class = "col-lg-4 distance">                                
+                                <div class = "linkModified">
+                                    <a href = "{% url 'articles:forensicDetail' articlecontext.id %}"  >
+                                        {% if articlecontext.articleImage %}
+                                        <div>
+                                            <img class = "image img-thumbnail" src = "{{articlecontext.articleImage.url}}" alt = ""/>
+                                        </div>
+                                        {% endif %}
+                                        <h4>{{articlecontext.title | safe}}</h4>
+                                        <p>{{articlecontext.summary | safe }}</p>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}                             
+                            {% else %}
+                            <div class = "alert alert-danger">
+                            Henüz makale eklenmemiştir
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class = "text-center">
+                        <a href = " {% url 'articles:forensic' %}" class = "btn btn-danger more"> Daha Fazla </a>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+             <section id = "translate">
+                <div class = "container">
+                    <div class = "translate-top text-center">
+                        <h3> MIXED </h3>
+                        <p>MIXED ARTICLES</p>
+                    </div>
+                    <div class = "translate-content text-center">
+                        <div class = "row">
+                            {% if karisikArticles %}
+                           {% for articlecontext in   karisikArticles %}
+                            <div class = "col-lg-4 distance">
+                                <div class = "linkModified">
+                                    <a href ="{% url 'articles:karisikDetail' articlecontext.id %}"  >
+                                        <div class = "card">
+                                            {% if articlecontext.articleImage %}
+                                            <img class = "image img-thumbnail" style="max-width:100%" src = "{{articlecontext.articleImage.url}}" alt = ""/>
+                                            {% endif %}
+                                            <div class = "card-block">
+                                                <h4 class = "card-title">{{articlecontext.title | safe}}</h4>
+                                                <p class = "card-subtitle text-muted">{{articlecontext.summary | safe }}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}                           
+                            {% else %}
+                            <div class = "alert alert-danger">
+                            Henüz makale eklenmemiştir
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class = "text-center">
+                        <a href = " {% url 'articles:karisik' %}" class = "btn btn-danger more"> Daha Fazla </a>
+                    </div>
+                </div>
+            </section>
+
+        
+        
+ 
+            <section id = "about">
+                <div class = "container">
+                    <div class = "about-top text-center">
+                        <h3>ABOUT</h3>
+                        <p>MUHAMMED FURKAN İLKEL</p>
+                    </div>
+                    <div class = "about-content">
+                        <div class = "row">
+                            <div class = "col-lg-4 text-center">
+                                <div class = "about-circle">
+                                    <img style="width: 208px;  height: 208px; border-radius: 208px;" src = "" alt = ""/>
+                                </div>
+                                    <h4>Muhammed Furkan Ilkel</h4>
+                                    <h5>Blogger</h5>
+                                </div>
+                                <div class = "col-lg-8">
+                                    <p>
+                                        Fırat Üniversitesi bilgisayar mühendisiği 4. sınıf öğrencisiyim.Ağ ve güvenlik alanlarına ilgi duyuyor ve kariyerime bu alanlarda yön vermek istiyorum. 
+                                        Kendi kodlamış olduğum web sitemi, ilgi duyduğum alanlarda araştırmalar yaparken öğrendiklerimi yazılara dökerek benimle aynı ilgi alanına sahip insanlarla paylaşabilmek için oluşturdum. 
+                                        Önerileriniz veya araştırmamı istediğiniz konular olursa bana mail yoluyla ulaşabilirsiniz. Keyifli okumalar.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            
+
+                <section id = "footer">
+                    <div class = "container">
+                        <div class = "row"> 
+                            <div class = "col-lg-6">
+                                <p>| Copyright © 2020-2021 MFIBlog.com |</p>
+                            </div>
+                            <div class = "col-md-6">
+                                <a href = ""><img src = "/media/icons/linkedin.png"  width="45" height="45" /></a>
+                                <a href = ""><img src = "/media/icons/github.png"  width="50" height="50" /></a>
+                                <a href = ""><img src = "/media/icons/facebook.png" width="50" height="50" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+
+            <script src = "{% static 'js/jquery-3.1.1.min.js' %}"></script>
+            <script src = "{% static 'js/bootstrap.min.js' %}"></script>
+            <script src = "{% static 'js/main-index.js' %}"></script>
+
+        </body>
+    </html>

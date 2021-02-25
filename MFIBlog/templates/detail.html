@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block Title %}
+
+    <section id = "detailImage" style = "background-image: url('{{detail.articleImage.url}}') ;">
+        <div class = "container">
+            <div class = "row">
+                {% include  "includes/navbar.html" %}
+            </div>
+        </div>
+    </section>
+
+
+
+
+{% endblock Title %}
+
+{% block content %}
+<section>
+        
+    <div class = "col-lg-12 distance middle">
+    </div>     
+
+     <div class = "container">
+        <div class = " detailContent">
+            <div class = "col-lg-12 text-left">
+                <h3>{{detail.title}}</h3>
+            </div>
+            <hr>
+            <div class = "row">
+                <div class="col-lg-9 ">
+                            {% if detail.articleImage %}
+                            <img class="img-fluid rounded" src="{{detail.articleImage.url}}" alt="">
+                            {% endif %}
+                        <p>
+                        {{detail.content | safe }}
+                        </p>
+                </div>
+
+                <div class="col-lg-3 detailSonMakaleler">
+                    <h5>NETWORK</h5>
+                        <hr>
+                        {% for articlecontext in  networkArticles %}
+                                <a href = "{% url 'articles:networkDetail' articlecontext.id %}"> {{articlecontext.title | safe}}</a>
+                                <br>
+                        {% endfor %}
+                        <br><br>
+                    <h5>SOC</h5>
+                        <hr>
+                        {% for articlecontext in  SoCArticles %}
+                                <a href = "{% url 'articles:SoCDetail' articlecontext.id %}"> {{articlecontext.title | safe}}</a>
+                                <br>
+                        {% endfor %}
+                        <br><br>
+                    <h5>FORENSİC</h5>
+                        <hr>
+                        {% for articlecontext in  forensicArticles %}
+                                <a href = "{% url 'articles:forensicDetail' articlecontext.id %}"> {{articlecontext.title | safe}}</a>
+                                <br>
+                        {% endfor %}
+                        <br><br>
+                    <h5>MİXED</h5>
+                        <hr>
+                        {% for articlecontext in  karisikArticles %}
+                                <a href = "{% url 'articles:karisikDetail' articlecontext.id %}"> {{articlecontext.title | safe}}</a>
+                                <br>
+                        {% endfor %}
+                        <br><br>
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section>
+    <div class = "container">
+            <div class = "row">
+                <div class = "col-lg-12">
+                    
+                    {% if detail.articlesVideo %}
+                        <video width="640" height="360" controls="controls" src="/media/{{detail.articlesVideo}}" type="video/mp4">
+                            Tarayıcınız video etiketini desteklemiyor.
+                        </video>
+                    {% else %}
+                    {% endif %}
+                    
+                    <hr>
+                    <p>{{detail.createDate | safe}} Tarihinde Yayınlandı</p>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+
+{% endblock content %}
+
+
